@@ -6,7 +6,6 @@ import { authenticate } from "../middleware/auth.js"
 
 const router = express.Router()
 
-// Register
 router.post(
   "/register",
   [
@@ -17,8 +16,11 @@ router.post(
   ],
   async (req, res) => {
     try {
+      console.log("Registration attempt:", { email: req.body.email, name: req.body.name })
+
       const errors = validationResult(req)
       if (!errors.isEmpty()) {
+        console.log("Validation errors:", errors.array())
         return res.status(400).json({ errors: errors.array() })
       }
 
@@ -26,6 +28,7 @@ router.post(
 
       const existingUser = await User.findOne({ email })
       if (existingUser) {
+        console.log("User already exists:", email)
         return res.status(400).json({ message: "User already exists with this email" })
       }
 
@@ -39,6 +42,7 @@ router.post(
       })
 
       await user.save()
+      console.log("User created successfully:", user._id)
 
       const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "7d" })
 
@@ -56,12 +60,14 @@ router.post(
       })
     } catch (error) {
       console.error("Registration error:", error)
-      res.status(500).json({ message: "Server error during registration" })
+      res.status(500).json({
+        message: "Server error during registration",
+        error: process.env.NODE_ENV === "development" ? error.message : undefined,
+      })
     }
   },
 )
 
-// Login
 router.post(
   "/login",
   [
@@ -70,8 +76,11 @@ router.post(
   ],
   async (req, res) => {
     try {
+      console.log("Login attempt:", { email: req.body.email })
+
       const errors = validationResult(req)
       if (!errors.isEmpty()) {
+        console.log("Validation errors:", errors.array())
         return res.status(400).json({ errors: errors.array() })
       }
 
@@ -79,19 +88,24 @@ router.post(
 
       const user = await User.findOne({ email })
       if (!user) {
+        console.log("User not found:", email)
         return res.status(400).json({ message: "Invalid credentials" })
       }
 
       const isMatch = await user.comparePassword(password)
       if (!isMatch) {
+        console.log("Password mismatch for:", email)
         return res.status(400).json({ message: "Invalid credentials" })
       }
 
       if (!user.isActive) {
+        console.log("Account deactivated:", email)
         return res.status(400).json({ message: "Account is deactivated" })
       }
 
       const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "7d" })
+
+      console.log("Login successful:", user._id)
 
       res.json({
         message: "Login successful",
@@ -108,7 +122,10 @@ router.post(
       })
     } catch (error) {
       console.error("Login error:", error)
-      res.status(500).json({ message: "Server error during login" })
+      res.status(500).json({
+        message: "Server error during login",
+        error: process.env.NODE_ENV === "development" ? error.message : undefined,
+      })
     }
   },
 )
@@ -121,6 +138,13 @@ router.get("/me", authenticate, async (req, res) => {
     console.error("Get user error:", error)
     res.status(500).json({ message: "Server error" })
   }
+})
+
+router.get("/test", (req, res) => {
+  res.json({
+    message: "Auth routes working!",
+    timestamp: new Date().toISOString(),
+  })
 })
 
 export default router
