@@ -1,34 +1,53 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
+"use client"
+import { Routes, Route, Navigate } from "react-router-dom"
+import { useAuth } from "./contexts/AuthContext"
+import Layout from "./components/Layout"
+import Home from "./pages/Home"
+import Login from "./pages/Login"
+import Register from "./pages/Register"
+import Dashboard from "./pages/Dashboard"
+import Services from "./pages/Services"
+import Providers from "./pages/Providers"
+import ProviderProfile from "./pages/ProviderProfile"
+import Bookings from "./pages/Bookings"
+import BookingForm from "./pages/BookingForm"
+import Profile from "./pages/Profile"
+import ProviderDashboard from "./pages/ProviderDashboard"
+import { authenticate } from './../../../Backend/middleware/auth';
 function App() {
-  const [count, setCount] = useState(0)
+  const { user, loading } = useAuth()
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"></div>
+      </div>
+    )
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="services" element={<Services />} />
+        <Route path="providers" element={<Providers />} />
+        <Route path="provider/:id" element={<ProviderProfile />} />
+
+        
+         {/* authentication route */}
+        <Route path="login" element={!user ? <Login /> : <Navigate to="/dashboard" />} />
+        <Route path="register" element={!user ? <Register /> : <Navigate to="/dashboard" />} />
+
+        <Route path="dashboard" element={user ? <Dashboard /> : <Navigate to="/login" />} />
+        <Route
+          path="provider-dashboard"
+          element={user?.role === "provider" ? <ProviderDashboard /> : <Navigate to="/dashboard" />}
+        />
+        <Route path="bookings" element={user ? <Bookings /> : <Navigate to="/login" />} />
+        <Route path="book/:providerId/:serviceId" element={user ? <BookingForm /> : <Navigate to="/login" />} />
+        <Route path="profile" element={user ? <Profile /> : <Navigate to="/login" />} />
+      </Route>
+    </Routes>
   )
 }
 

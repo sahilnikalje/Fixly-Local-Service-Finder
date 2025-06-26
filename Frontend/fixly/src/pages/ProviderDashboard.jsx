@@ -2,18 +2,19 @@
 
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
+import { Calendar, Clock, Star, DollarSign, Users } from "lucide-react"
 import { useAuth } from "../contexts/AuthContext"
-import { Calendar, Clock, Star, MapPin, Plus } from "lucide-react"
 import axios from "axios"
 
-const Dashboard = () => {
+const ProviderDashboard = () => {
   const { user } = useAuth()
   const [bookings, setBookings] = useState([])
   const [stats, setStats] = useState({
     totalBookings: 0,
     pendingBookings: 0,
     completedBookings: 0,
-    totalSpent: 0,
+    totalEarnings: 0,
+    averageRating: 0,
   })
   const [loading, setLoading] = useState(true)
 
@@ -32,7 +33,8 @@ const Dashboard = () => {
         totalBookings: bookingsData.length,
         pendingBookings: bookingsData.filter((b) => b.status === "pending").length,
         completedBookings: bookingsData.filter((b) => b.status === "completed").length,
-        totalSpent: bookingsData.filter((b) => b.status === "completed").reduce((sum, b) => sum + b.price, 0),
+        totalEarnings: bookingsData.filter((b) => b.status === "completed").reduce((sum, b) => sum + b.price, 0),
+        averageRating: 4.8, 
       }
 
       setStats(stats)
@@ -72,11 +74,10 @@ const Dashboard = () => {
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Welcome back, {user?.name}!</h1>
-          <p className="text-gray-600 mt-2">Here's what's happening with your bookings</p>
+          <h1 className="text-3xl font-bold text-gray-900">Provider Dashboard</h1>
+          <p className="text-gray-600 mt-2">Manage your services and bookings</p>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
           <div className="card p-6">
             <div className="flex items-center">
               <div className="p-2 bg-primary-100 rounded-lg">
@@ -104,7 +105,7 @@ const Dashboard = () => {
           <div className="card p-6">
             <div className="flex items-center">
               <div className="p-2 bg-green-100 rounded-lg">
-                <Star className="w-6 h-6 text-green-600" />
+                <Users className="w-6 h-6 text-green-600" />
               </div>
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">Completed</p>
@@ -116,11 +117,23 @@ const Dashboard = () => {
           <div className="card p-6">
             <div className="flex items-center">
               <div className="p-2 bg-blue-100 rounded-lg">
-                <MapPin className="w-6 h-6 text-blue-600" />
+                <DollarSign className="w-6 h-6 text-blue-600" />
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Total Spent</p>
-                <p className="text-2xl font-bold text-gray-900">${stats.totalSpent}</p>
+                <p className="text-sm font-medium text-gray-600">Earnings</p>
+                <p className="text-2xl font-bold text-gray-900">${stats.totalEarnings}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="card p-6">
+            <div className="flex items-center">
+              <div className="p-2 bg-purple-100 rounded-lg">
+                <Star className="w-6 h-6 text-purple-600" />
+              </div>
+              <div className="ml-4">
+                <p className="text-sm font-medium text-gray-600">Rating</p>
+                <p className="text-2xl font-bold text-gray-900">{stats.averageRating}</p>
               </div>
             </div>
           </div>
@@ -143,9 +156,6 @@ const Dashboard = () => {
                   <div className="text-center py-8">
                     <Calendar className="w-12 h-12 text-gray-400 mx-auto mb-4" />
                     <p className="text-gray-500">No bookings yet</p>
-                    <Link to="/services" className="btn btn-primary mt-4">
-                      Book a Service
-                    </Link>
                   </div>
                 ) : (
                   <div className="space-y-4">
@@ -153,6 +163,7 @@ const Dashboard = () => {
                       <div key={booking._id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                         <div className="flex-1">
                           <h3 className="font-medium text-gray-900">{booking.service?.name}</h3>
+                          <p className="text-sm text-gray-600">Customer: {booking.customer?.name}</p>
                           <p className="text-sm text-gray-600">
                             {new Date(booking.scheduledDate).toLocaleDateString()} at {booking.scheduledTime}
                           </p>
@@ -170,35 +181,37 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-
-          <div className="space-y-6">
+7          <div className="space-y-6">
             <div className="card p-6">
               <h2 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h2>
               <div className="space-y-3">
-                <Link to="/services" className="btn btn-primary w-full flex items-center justify-center">
-                  <Plus className="w-4 h-4 mr-2" />
-                  Book New Service
-                </Link>
-                <Link to="/providers" className="btn btn-outline w-full">
-                  Find Providers
-                </Link>
-                <Link to="/bookings" className="btn btn-outline w-full">
+                <Link to="/bookings" className="btn btn-primary w-full">
                   View All Bookings
                 </Link>
+                <Link to="/profile" className="btn btn-outline w-full">
+                  Update Profile
+                </Link>
+                <button className="btn btn-outline w-full">Manage Services</button>
               </div>
             </div>
 
-            {user?.role === "customer" && (
-              <div className="card p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Become a Provider</h3>
-                <p className="text-gray-600 text-sm mb-4">
-                  Start earning by offering your services to customers in your area.
-                </p>
-                <Link to="/register?role=provider" className="btn btn-primary w-full">
-                  Get Started
-                </Link>
+            <div className="card p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Performance</h3>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-gray-600">Response Rate</span>
+                  <span className="font-semibold">95%</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-gray-600">Completion Rate</span>
+                  <span className="font-semibold">98%</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-gray-600">Customer Satisfaction</span>
+                  <span className="font-semibold">4.8/5</span>
+                </div>
               </div>
-            )}
+            </div>
           </div>
         </div>
       </div>
@@ -206,4 +219,4 @@ const Dashboard = () => {
   )
 }
 
-export default Dashboard
+export default ProviderDashboard
