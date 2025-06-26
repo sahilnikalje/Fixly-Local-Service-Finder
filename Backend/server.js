@@ -25,6 +25,7 @@ const io = new Server(server, {
     credentials: true,
   },
 })
+
 app.use(
   helmet({
     crossOriginEmbedderPolicy: false,
@@ -77,6 +78,7 @@ app.get("/api/health", (req, res) => {
     status: "OK",
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV || "development",
+    mongodb: mongoose.connection.readyState === 1 ? "connected" : "disconnected",
   })
 })
 
@@ -93,10 +95,7 @@ app.use((err, req, res, next) => {
 })
 
 mongoose
-  .connect(process.env.MONGODB_URI || "mongodb://localhost:27017/fixly", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGODB_URI || "mongodb://localhost:27017/fixly")
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => {
     console.error("MongoDB connection error:", err)
