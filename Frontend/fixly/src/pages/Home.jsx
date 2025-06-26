@@ -36,7 +36,6 @@ const Home = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
       <section className="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
@@ -59,7 +58,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Services Grid */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -82,8 +80,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
-      {/* Features Section */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -103,7 +99,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className="bg-primary-600 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>

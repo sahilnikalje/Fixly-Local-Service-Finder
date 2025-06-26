@@ -18,7 +18,6 @@ const Providers = () => {
     minRating: Number.parseFloat(searchParams.get("minRating")) || 0,
   })
 
-  // Enhanced mock data with more providers
   const mockProviders = [
     {
       _id: "1",
@@ -238,7 +237,6 @@ const Providers = () => {
 
       if (filters.service) params.append("service", filters.service)
       if (filters.location) {
-        // Mock coordinates for different locations
         const locationCoords = getLocationCoordinates(filters.location)
         if (locationCoords) {
           params.append("lat", locationCoords.lat)
@@ -259,7 +257,6 @@ const Providers = () => {
       console.log("Using mock data for providers")
       let filteredProviders = [...mockProviders]
 
-      // Apply filters to mock data
       if (filters.service) {
         filteredProviders = filteredProviders.filter((provider) =>
           provider.services.some((service) => service.service._id === filters.service),
@@ -270,7 +267,6 @@ const Providers = () => {
         filteredProviders = filteredProviders.filter((provider) => provider.rating >= filters.minRating)
       }
 
-      // Simulate location filtering
       if (filters.location) {
         const searchLocation = filters.location.toLowerCase()
         filteredProviders = filteredProviders.filter((provider) =>
@@ -286,7 +282,6 @@ const Providers = () => {
   }
 
   const getLocationCoordinates = (location) => {
-    // Mock coordinates for common locations
     const locationMap = {
       "new york": { lat: "40.7128", lng: "-74.0060" },
       brooklyn: { lat: "40.6782", lng: "-73.9442" },
@@ -316,7 +311,6 @@ const Providers = () => {
     }
     setFilters(newFilters)
 
-    // Update URL params without page refresh
     const newSearchParams = new URLSearchParams()
     Object.entries(newFilters).forEach(([k, v]) => {
       if (v && v !== "" && v !== 0) {
@@ -340,7 +334,6 @@ const Providers = () => {
     }
     setFilters(clearedFilters)
     setSearchParams({})
-    // Refetch with cleared filters
     setTimeout(() => {
       fetchProviders()
     }, 100)
@@ -368,7 +361,6 @@ const Providers = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-4">Service Providers</h1>
           <p className="text-lg text-gray-600">Find trusted professionals in your area</p>
@@ -378,10 +370,8 @@ const Providers = () => {
           </p>
         </div>
 
-        {/* Search Form */}
         <form onSubmit={handleSearch} className="bg-white rounded-lg shadow-sm p-6 mb-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-            {/* Service Filter */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Service</label>
               <select
@@ -398,7 +388,6 @@ const Providers = () => {
               </select>
             </div>
 
-            {/* Location Filter */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Location</label>
               <input
@@ -410,7 +399,6 @@ const Providers = () => {
               />
             </div>
 
-            {/* Radius Filter */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Radius</label>
               <select
@@ -425,7 +413,6 @@ const Providers = () => {
               </select>
             </div>
 
-            {/* Rating Filter */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Min Rating</label>
               <select
@@ -440,7 +427,6 @@ const Providers = () => {
               </select>
             </div>
 
-            {/* Search Button */}
             <div className="flex items-end">
               <button
                 type="submit"
@@ -459,7 +445,6 @@ const Providers = () => {
             </div>
           </div>
 
-          {/* Clear Filters */}
           {(filters.service || filters.location || filters.minRating > 0) && (
             <div className="mt-4 flex justify-center">
               <button type="button" onClick={clearFilters} className="btn btn-outline btn-sm">
@@ -469,7 +454,6 @@ const Providers = () => {
           )}
         </form>
 
-        {/* Loading State */}
         {searchLoading && (
           <div className="text-center py-8">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
@@ -477,13 +461,11 @@ const Providers = () => {
           </div>
         )}
 
-        {/* Providers Grid */}
         {!searchLoading && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {providers.map((provider) => (
               <div key={provider._id} className="card hover:shadow-lg transition-shadow">
                 <div className="p-6">
-                  {/* Provider Header */}
                   <div className="flex items-center mb-4">
                     <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mr-4">
                       {provider.user.avatar ? (
@@ -514,10 +496,8 @@ const Providers = () => {
                     </div>
                   </div>
 
-                  {/* Bio */}
                   {provider.bio && <p className="text-gray-600 mb-4 text-sm">{provider.bio}</p>}
 
-                  {/* Services */}
                   <div className="mb-4">
                     <h4 className="text-sm font-medium text-gray-700 mb-2">Services:</h4>
                     <div className="flex flex-wrap gap-2">
@@ -534,7 +514,6 @@ const Providers = () => {
                     </div>
                   </div>
 
-                  {/* Experience & Location */}
                   <div className="space-y-2 mb-4 text-sm text-gray-600">
                     <div className="flex items-center">
                       <Clock className="w-4 h-4 mr-1" />
@@ -546,7 +525,6 @@ const Providers = () => {
                     </div>
                   </div>
 
-                  {/* Actions */}
                   <div className="flex gap-2">
                     <Link to={`/provider/${provider._id}`} className="btn btn-outline flex-1 text-center">
                       View Profile
@@ -566,7 +544,6 @@ const Providers = () => {
           </div>
         )}
 
-        {/* No Results */}
         {!searchLoading && providers.length === 0 && (
           <div className="text-center py-12">
             <div className="text-6xl mb-4">👥</div>
