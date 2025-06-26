@@ -26,8 +26,9 @@ const Dashboard = () => {
       const response = await axios.get("/api/bookings/my-bookings")
       const bookingsData = response.data
 
-      setBookings(bookingsData.slice(0, 5)) 
+      setBookings(bookingsData.slice(0, 5)) // Show only recent 5 bookings
 
+      // Calculate stats
       const stats = {
         totalBookings: bookingsData.length,
         pendingBookings: bookingsData.filter((b) => b.status === "pending").length,
@@ -71,11 +72,13 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Welcome back, {user?.name}!</h1>
           <p className="text-gray-600 mt-2">Here's what's happening with your bookings</p>
         </div>
 
+        {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <div className="card p-6">
             <div className="flex items-center">
@@ -126,7 +129,9 @@ const Dashboard = () => {
           </div>
         </div>
 
+        {/* Quick Actions */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Recent Bookings */}
           <div className="lg:col-span-2">
             <div className="card">
               <div className="p-6 border-b border-gray-200">
@@ -171,6 +176,7 @@ const Dashboard = () => {
             </div>
           </div>
 
+          {/* Quick Actions */}
           <div className="space-y-6">
             <div className="card p-6">
               <h2 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h2>
@@ -199,6 +205,24 @@ const Dashboard = () => {
                 </Link>
               </div>
             )}
+
+            {/* Profile, Services, Bookings Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="card p-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Profile</h3>
+                <p className="text-gray-600">Manage your account settings</p>
+              </div>
+
+              <div className="card p-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Services</h3>
+                <p className="text-gray-600">Browse available services</p>
+              </div>
+
+              <div className="card p-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Bookings</h3>
+                <p className="text-gray-600">View your appointments</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

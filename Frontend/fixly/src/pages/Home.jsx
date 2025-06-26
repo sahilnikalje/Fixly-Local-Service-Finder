@@ -36,27 +36,30 @@ const Home = () => {
 
   return (
     <div className="min-h-screen">
-      <section className="bg-gradient-to-br from-primary-600 to-primary-800 text-white py-20">
+      {/* Hero Section */}
+      <section className="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">Find Local Service Providers</h1>
-            <p className="text-xl md:text-2xl mb-8 text-primary-100">
+            <p className="text-xl md:text-2xl mb-8 text-blue-100">
               Connect with trusted professionals for all your home and personal needs
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/services" className="btn bg-white text-primary-600 hover:bg-gray-100 px-8 py-3 text-lg">
-                Browse Services
+              <Link to="/register" className="btn bg-white text-blue-600 hover:bg-gray-100 px-8 py-3 text-lg">
+                Get Started
               </Link>
               <Link
-                to="/providers"
-                className="btn border-2 border-white text-white hover:bg-white hover:text-primary-600 px-8 py-3 text-lg"
+                to="/login"
+                className="btn border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-3 text-lg"
               >
-                Find Providers
+                Sign In
               </Link>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Services Grid */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -79,6 +82,8 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      {/* Features Section */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -97,6 +102,8 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      {/* CTA Section */}
       <section className="bg-primary-600 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>
