@@ -52,7 +52,6 @@ const Register = () => {
           const { latitude, longitude } = position.coords
 
           try {
-            // Reverse geocoding to get address
             const response = await fetch(
               `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=YOUR_API_KEY`,
             )

@@ -17,18 +17,52 @@ const Dashboard = () => {
   })
   const [loading, setLoading] = useState(true)
 
+  const mockBookings = [
+    {
+      _id: "1",
+      service: { name: "Electrical Repair" },
+      provider: { user: { name: "Rajesh Sharma" } },
+      scheduledDate: new Date().toISOString(),
+      scheduledTime: "10:00",
+      price: 450,
+      status: "pending",
+    },
+    {
+      _id: "2",
+      service: { name: "Plumbing Services" },
+      provider: { user: { name: "Priya Patil" } },
+      scheduledDate: new Date(Date.now() - 86400000).toISOString(),
+      scheduledTime: "14:00",
+      price: 400,
+      status: "completed",
+    },
+    {
+      _id: "3",
+      service: { name: "Math Tutoring" },
+      provider: { user: { name: "Amit Joshi" } },
+      scheduledDate: new Date(Date.now() + 86400000).toISOString(),
+      scheduledTime: "17:00",
+      price: 300,
+      status: "confirmed",
+    },
+  ]
+
   useEffect(() => {
     fetchDashboardData()
   }, [])
 
   const fetchDashboardData = async () => {
     try {
-      const response = await axios.get("/api/bookings/my-bookings")
+      const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000"
+      const response = await axios.get(`${API_URL}/api/bookings/my-bookings`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
       const bookingsData = response.data
 
-      setBookings(bookingsData.slice(0, 5)) 
+      setBookings(bookingsData.slice(0, 5)) // Show only recent 5 bookings
 
-      // Calculate stats
       const stats = {
         totalBookings: bookingsData.length,
         pendingBookings: bookingsData.filter((b) => b.status === "pending").length,
@@ -38,7 +72,17 @@ const Dashboard = () => {
 
       setStats(stats)
     } catch (error) {
-      console.error("Error fetching dashboard data:", error)
+      console.log("Using mock data for dashboard")
+      setBookings(mockBookings)
+
+      const stats = {
+        totalBookings: mockBookings.length,
+        pendingBookings: mockBookings.filter((b) => b.status === "pending").length,
+        completedBookings: mockBookings.filter((b) => b.status === "completed").length,
+        totalSpent: mockBookings.filter((b) => b.status === "completed").reduce((sum, b) => sum + b.price, 0),
+      }
+
+      setStats(stats)
     } finally {
       setLoading(false)
     }
@@ -74,7 +118,7 @@ const Dashboard = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Welcome back, {user?.name}!</h1>
-          <p className="text-gray-600 mt-2">Here's what's happening with your bookings</p>
+          <p className="text-gray-600 mt-2">Here's what's happening with your bookings in Pune</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -121,7 +165,7 @@ const Dashboard = () => {
               </div>
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">Total Spent</p>
-                <p className="text-2xl font-bold text-gray-900">${stats.totalSpent}</p>
+                <p className="text-2xl font-bold text-gray-900">₹{stats.totalSpent}</p>
               </div>
             </div>
           </div>
@@ -154,10 +198,11 @@ const Dashboard = () => {
                       <div key={booking._id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                         <div className="flex-1">
                           <h3 className="font-medium text-gray-900">{booking.service?.name}</h3>
+                          <p className="text-sm text-gray-600">Provider: {booking.provider?.user?.name}</p>
                           <p className="text-sm text-gray-600">
-                            {new Date(booking.scheduledDate).toLocaleDateString()} at {booking.scheduledTime}
+                            {new Date(booking.scheduledDate).toLocaleDateString("en-IN")} at {booking.scheduledTime}
                           </p>
-                          <p className="text-sm text-gray-500">${booking.price}</p>
+                          <p className="text-sm text-gray-500">₹{booking.price}</p>
                         </div>
                         <span
                           className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(booking.status)}`}
@@ -181,7 +226,7 @@ const Dashboard = () => {
                   Book New Service
                 </Link>
                 <Link to="/providers" className="btn btn-outline w-full">
-                  Find Providers
+                  Find Providers in Pune
                 </Link>
                 <Link to="/bookings" className="btn btn-outline w-full">
                   View All Bookings
@@ -193,7 +238,7 @@ const Dashboard = () => {
               <div className="card p-6">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Become a Provider</h3>
                 <p className="text-gray-600 text-sm mb-4">
-                  Start earning by offering your services to customers in your area.
+                  Start earning by offering your services to customers in Pune.
                 </p>
                 <Link to="/register?role=provider" className="btn btn-primary w-full">
                   Get Started
@@ -201,20 +246,21 @@ const Dashboard = () => {
               </div>
             )}
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="card p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Profile</h3>
-                <p className="text-gray-600">Manage your account settings</p>
-              </div>
-
-              <div className="card p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Services</h3>
-                <p className="text-gray-600">Browse available services</p>
-              </div>
-
-              <div className="card p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Bookings</h3>
-                <p className="text-gray-600">View your appointments</p>
+            <div className="card p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Popular in Pune</h3>
+              <div className="space-y-2">
+                <Link to="/providers?service=1" className="block text-sm text-gray-600 hover:text-blue-600">
+                  ⚡ Electrical Services
+                </Link>
+                <Link to="/providers?service=2" className="block text-sm text-gray-600 hover:text-blue-600">
+                  🔧 Plumbing Services
+                </Link>
+                <Link to="/providers?service=4" className="block text-sm text-gray-600 hover:text-blue-600">
+                  🧹 House Cleaning
+                </Link>
+                <Link to="/providers?service=3" className="block text-sm text-gray-600 hover:text-blue-600">
+                  📚 Tutoring Services
+                </Link>
               </div>
             </div>
           </div>

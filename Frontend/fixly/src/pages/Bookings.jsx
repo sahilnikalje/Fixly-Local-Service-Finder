@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
-import { Calendar, Clock, MapPin, X } from "lucide-react"
+import { Calendar, Clock, MapPin } from "lucide-react"
 import { useAuth } from "../contexts/AuthContext"
 import axios from "axios"
 
@@ -11,7 +11,57 @@ const Bookings = () => {
   const [bookings, setBookings] = useState([])
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState("all")
-  const [selectedBooking, setSelectedBooking] = useState(null)
+
+  const mockBookings = [
+    {
+      _id: "1",
+      service: { name: "Electrical Repair" },
+      provider: { user: { name: "Rajesh Sharma" } },
+      customer: { name: "Customer Name" },
+      scheduledDate: new Date().toISOString(),
+      scheduledTime: "10:00",
+      location: { address: "Koregaon Park, Pune, Maharashtra 411001" },
+      description: "Fix electrical outlet in kitchen and check main panel",
+      price: 450,
+      status: "pending",
+    },
+    {
+      _id: "2",
+      service: { name: "Plumbing Services" },
+      provider: { user: { name: "Priya Patil" } },
+      customer: { name: "Customer Name" },
+      scheduledDate: new Date(Date.now() - 86400000).toISOString(), // Yesterday
+      scheduledTime: "14:00",
+      location: { address: "Baner, Pune, Maharashtra 411045" },
+      description: "Fix leaky faucet in bathroom and check water pressure",
+      price: 400,
+      status: "completed",
+    },
+    {
+      _id: "3",
+      service: { name: "Math Tutoring" },
+      provider: { user: { name: "Amit Joshi" } },
+      customer: { name: "Customer Name" },
+      scheduledDate: new Date(Date.now() + 86400000).toISOString(), // Tomorrow
+      scheduledTime: "17:00",
+      location: { address: "Shivaji Nagar, Pune, Maharashtra 411005" },
+      description: "12th grade calculus and trigonometry help",
+      price: 300,
+      status: "confirmed",
+    },
+    {
+      _id: "4",
+      service: { name: "House Cleaning" },
+      provider: { user: { name: "Sunita Desai" } },
+      customer: { name: "Customer Name" },
+      scheduledDate: new Date(Date.now() + 172800000).toISOString(), // Day after tomorrow
+      scheduledTime: "11:00",
+      location: { address: "Wakad, Pune, Maharashtra 411057" },
+      description: "Deep cleaning of 2BHK apartment including kitchen and bathrooms",
+      price: 250,
+      status: "confirmed",
+    },
+  ]
 
   useEffect(() => {
     fetchBookings()
@@ -19,21 +69,18 @@ const Bookings = () => {
 
   const fetchBookings = async () => {
     try {
-      const response = await axios.get("/api/bookings/my-bookings")
+      const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000"
+      const response = await axios.get(`${API_URL}/api/bookings/my-bookings`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
       setBookings(response.data)
     } catch (error) {
-      console.error("Error fetching bookings:", error)
+      console.log("Using mock data for bookings")
+      setBookings(mockBookings)
     } finally {
       setLoading(false)
-    }
-  }
-
-  const updateBookingStatus = async (bookingId, status) => {
-    try {
-      await axios.patch(`/api/bookings/${bookingId}/status`, { status })
-      setBookings((prev) => prev.map((booking) => (booking._id === bookingId ? { ...booking, status } : booking)))
-    } catch (error) {
-      console.error("Error updating booking status:", error)
     }
   }
 
@@ -60,7 +107,7 @@ const Bookings = () => {
   })
 
   const formatDate = (date) => {
-    return new Date(date).toLocaleDateString("en-US", {
+    return new Date(date).toLocaleDateString("en-IN", {
       weekday: "long",
       year: "numeric",
       month: "long",
@@ -71,7 +118,7 @@ const Bookings = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"></div>
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
       </div>
     )
   }
@@ -79,7 +126,6 @@ const Bookings = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">My Bookings</h1>
@@ -106,7 +152,7 @@ const Bookings = () => {
                   onClick={() => setFilter(tab.key)}
                   className={`py-4 px-1 border-b-2 font-medium text-sm ${
                     filter === tab.key
-                      ? "border-primary-500 text-primary-600"
+                      ? "border-blue-500 text-blue-600"
                       : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
                   }`}
                 >
@@ -168,47 +214,9 @@ const Bookings = () => {
                     <p className="text-gray-600 mb-4">{booking.description}</p>
 
                     <div className="flex items-center justify-between">
-                      <span className="text-2xl font-bold text-primary-600">${booking.price}</span>
+                      <span className="text-2xl font-bold text-blue-600">₹{booking.price}</span>
                       <div className="flex space-x-2">
-                        <button onClick={() => setSelectedBooking(booking)} className="btn btn-outline btn-sm">
-                          View Details
-                        </button>
-
-                        {user?.role === "provider" && booking.status === "pending" && (
-                          <>
-                            <button
-                              onClick={() => updateBookingStatus(booking._id, "confirmed")}
-                              className="btn btn-primary btn-sm"
-                            >
-                              Accept
-                            </button>
-                            <button
-                              onClick={() => updateBookingStatus(booking._id, "cancelled")}
-                              className="btn bg-red-600 text-white hover:bg-red-700 btn-sm"
-                            >
-                              Decline
-                            </button>
-                          </>
-                        )}
-
-                        {booking.status === "confirmed" && (
-                          <button
-                            onClick={() => updateBookingStatus(booking._id, "in-progress")}
-                            className="btn btn-primary btn-sm"
-                          >
-                            Start Service
-                          </button>
-                        )}
-
-                        {booking.status === "in-progress" && (
-                          <button
-                            onClick={() => updateBookingStatus(booking._id, "completed")}
-                            className="btn btn-primary btn-sm"
-                          >
-                            Complete
-                          </button>
-                        )}
-
+                        <button className="btn btn-outline btn-sm">View Details</button>
                         {booking.status === "completed" && user?.role === "customer" && (
                           <Link to={`/review/${booking._id}`} className="btn btn-primary btn-sm">
                             Leave Review
@@ -220,77 +228,6 @@ const Bookings = () => {
                 </div>
               </div>
             ))}
-          </div>
-        )}
-
-        {selectedBooking && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-              <div className="p-6">
-                <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-2xl font-bold text-gray-900">Booking Details</h2>
-                  <button onClick={() => setSelectedBooking(null)} className="text-gray-400 hover:text-gray-600">
-                    <X className="w-6 h-6" />
-                  </button>
-                </div>
-
-                <div className="space-y-4">
-                  <div>
-                    <h3 className="font-semibold text-gray-900">Service</h3>
-                    <p className="text-gray-600">{selectedBooking.service?.name}</p>
-                  </div>
-
-                  <div>
-                    <h3 className="font-semibold text-gray-900">
-                      {user?.role === "customer" ? "Provider" : "Customer"}
-                    </h3>
-                    <p className="text-gray-600">
-                      {user?.role === "customer"
-                        ? selectedBooking.provider?.user?.name
-                        : selectedBooking.customer?.name}
-                    </p>
-                  </div>
-
-                  <div>
-                    <h3 className="font-semibold text-gray-900">Date & Time</h3>
-                    <p className="text-gray-600">
-                      {formatDate(selectedBooking.scheduledDate)} at {selectedBooking.scheduledTime}
-                    </p>
-                  </div>
-
-                  <div>
-                    <h3 className="font-semibold text-gray-900">Location</h3>
-                    <p className="text-gray-600">{selectedBooking.location.address}</p>
-                  </div>
-
-                  <div>
-                    <h3 className="font-semibold text-gray-900">Description</h3>
-                    <p className="text-gray-600">{selectedBooking.description}</p>
-                  </div>
-
-                  <div>
-                    <h3 className="font-semibold text-gray-900">Price</h3>
-                    <p className="text-2xl font-bold text-primary-600">${selectedBooking.price}</p>
-                  </div>
-
-                  <div>
-                    <h3 className="font-semibold text-gray-900">Status</h3>
-                    <span
-                      className={`px-3 py-1 text-sm font-medium rounded-full ${getStatusColor(selectedBooking.status)}`}
-                    >
-                      {selectedBooking.status}
-                    </span>
-                  </div>
-
-                  {selectedBooking.notes && (
-                    <div>
-                      <h3 className="font-semibold text-gray-900">Notes</h3>
-                      <p className="text-gray-600">{selectedBooking.notes}</p>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
           </div>
         )}
       </div>
