@@ -6,6 +6,12 @@ import toast from "react-hot-toast"
 
 const AuthContext = createContext()
 
+// Get API URL from environment
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000"
+
+console.log("🔗 API_URL from env:", API_URL)
+console.log("🔗 All env vars:", import.meta.env)
+
 export const useAuth = () => {
   const context = useContext(AuthContext)
   if (!context) {
@@ -30,7 +36,10 @@ export const AuthProvider = ({ children }) => {
 
   const fetchUser = async () => {
     try {
-      const response = await axios.get("/api/auth/me")
+      const fullUrl = `${API_URL}/api/auth/me`
+      console.log("🔗 Fetching user from:", fullUrl)
+
+      const response = await axios.get(fullUrl)
       setUser(response.data)
     } catch (error) {
       console.error("Auth error:", error)
@@ -44,7 +53,11 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post("/api/auth/login", { email, password })
+      const fullUrl = `${API_URL}/api/auth/login`
+      console.log("🔗 Login URL:", fullUrl)
+      console.log("🔗 Login data:", { email, password: "***" })
+
+      const response = await axios.post(fullUrl, { email, password })
       const { token, user } = response.data
 
       localStorage.setItem("token", token)
@@ -54,6 +67,10 @@ export const AuthProvider = ({ children }) => {
       toast.success("Login successful!")
       return { success: true }
     } catch (error) {
+      console.error("❌ Login error:", error)
+      console.error("❌ Error response:", error.response?.data)
+      console.error("❌ Error status:", error.response?.status)
+
       const message = error.response?.data?.message || "Login failed"
       toast.error(message)
       return { success: false, message }
@@ -62,7 +79,11 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (userData) => {
     try {
-      const response = await axios.post("/api/auth/register", userData)
+      const fullUrl = `${API_URL}/api/auth/register`
+      console.log("🔗 Register URL:", fullUrl)
+      console.log("🔗 Register data:", { ...userData, password: "***" })
+
+      const response = await axios.post(fullUrl, userData)
       const { token, user } = response.data
 
       localStorage.setItem("token", token)
@@ -72,6 +93,10 @@ export const AuthProvider = ({ children }) => {
       toast.success("Registration successful!")
       return { success: true }
     } catch (error) {
+      console.error("❌ Registration error:", error)
+      console.error("❌ Error response:", error.response?.data)
+      console.error("❌ Error status:", error.response?.status)
+
       const message = error.response?.data?.message || "Registration failed"
       toast.error(message)
       return { success: false, message }

@@ -23,28 +23,28 @@ const Providers = () => {
       _id: "1",
       user: {
         _id: "1",
-        name: "John Electrician",
-        email: "john@example.com",
-        phone: "+1234567890",
+        name: "Ravi Electrician",
+        email: "ravi@example.com",
+        phone: "+919876543210",
         avatar: "",
         location: {
-          coordinates: [-74.006, 40.7128],
-          address: "New York, NY 10001",
+          coordinates: [73.8567, 18.5204],
+          address: "Shivaji Nagar, Pune 411005",
         },
       },
       services: [
         {
           service: { _id: "1", name: "Electrical Repair", category: "electrical" },
-          price: 85,
+          price: 600,
           experience: 5,
         },
         {
           service: { _id: "5", name: "Appliance Repair", category: "repair" },
-          price: 90,
+          price: 700,
           experience: 3,
         },
       ],
-      bio: "Experienced electrician with 5+ years in residential and commercial electrical work. Licensed and insured.",
+      bio: "Skilled electrician with 5+ years of experience in residential and commercial electrical work across Pune.",
       experience: 5,
       rating: 4.8,
       totalReviews: 24,
@@ -63,23 +63,23 @@ const Providers = () => {
       _id: "2",
       user: {
         _id: "2",
-        name: "Sarah Plumber",
-        email: "sarah@example.com",
-        phone: "+1234567891",
+        name: "Sneha Plumber",
+        email: "sneha@example.com",
+        phone: "+919812345678",
         avatar: "",
         location: {
-          coordinates: [-74.006, 40.7128],
-          address: "Brooklyn, NY 11201",
+          coordinates: [73.8567, 18.5204],
+          address: "Kothrud, Pune 411038",
         },
       },
       services: [
         {
           service: { _id: "2", name: "Plumbing Services", category: "plumbing" },
-          price: 75,
+          price: 500,
           experience: 3,
         },
       ],
-      bio: "Professional plumber specializing in residential repairs and installations. Emergency services available.",
+      bio: "Reliable plumber with experience in residential and commercial installations across Pune.",
       experience: 3,
       rating: 4.6,
       totalReviews: 18,
@@ -98,23 +98,23 @@ const Providers = () => {
       _id: "3",
       user: {
         _id: "3",
-        name: "Mike Tutor",
-        email: "mike@example.com",
-        phone: "+1234567892",
+        name: "Madhav Math Tutor",
+        email: "madhav@example.com",
+        phone: "+919834567890",
         avatar: "",
         location: {
-          coordinates: [-74.006, 40.7128],
-          address: "Manhattan, NY 10003",
+          coordinates: [73.8567, 18.5204],
+          address: "Aundh, Pune 411007",
         },
       },
       services: [
         {
           service: { _id: "3", name: "Math Tutoring", category: "tutoring" },
-          price: 45,
+          price: 400,
           experience: 7,
         },
       ],
-      bio: "Certified math teacher with 7 years of tutoring experience. Specializing in high school and college level mathematics.",
+      bio: "Dedicated math teacher with 7 years of experience tutoring students from high school to college in Pune.",
       experience: 7,
       rating: 4.9,
       totalReviews: 32,
@@ -133,23 +133,23 @@ const Providers = () => {
       _id: "4",
       user: {
         _id: "4",
-        name: "Lisa Cleaner",
-        email: "lisa@example.com",
-        phone: "+1234567893",
+        name: "Lata Cleaner",
+        email: "lata@example.com",
+        phone: "+919923456781",
         avatar: "",
         location: {
-          coordinates: [-74.006, 40.7128],
-          address: "Queens, NY 11375",
+          coordinates: [73.8567, 18.5204],
+          address: "Viman Nagar, Pune 411014",
         },
       },
       services: [
         {
           service: { _id: "4", name: "House Cleaning", category: "cleaning" },
-          price: 55,
+          price: 450,
           experience: 4,
         },
       ],
-      bio: "Professional house cleaning service with eco-friendly products. Reliable and thorough cleaning for your home.",
+      bio: "Trustworthy house cleaning service using eco-friendly products across Pune.",
       experience: 4,
       rating: 4.7,
       totalReviews: 28,
@@ -168,28 +168,28 @@ const Providers = () => {
       _id: "5",
       user: {
         _id: "5",
-        name: "Tom Handyman",
-        email: "tom@example.com",
-        phone: "+1234567894",
+        name: "Amit Handyman",
+        email: "amit@example.com",
+        phone: "+919765432101",
         avatar: "",
         location: {
-          coordinates: [-74.006, 40.7128],
-          address: "Bronx, NY 10451",
+          coordinates: [73.8567, 18.5204],
+          address: "Baner, Pune 411045",
         },
       },
       services: [
         {
           service: { _id: "5", name: "Appliance Repair", category: "repair" },
-          price: 80,
+          price: 550,
           experience: 6,
         },
         {
           service: { _id: "6", name: "General Maintenance", category: "maintenance" },
-          price: 70,
+          price: 600,
           experience: 6,
         },
       ],
-      bio: "Skilled handyman offering appliance repair and general maintenance services. Quick response and fair pricing.",
+      bio: "Skilled handyman offering appliance repair and general maintenance across Pune.",
       experience: 6,
       rating: 4.5,
       totalReviews: 21,
@@ -283,16 +283,12 @@ const Providers = () => {
 
   const getLocationCoordinates = (location) => {
     const locationMap = {
-      "new york": { lat: "40.7128", lng: "-74.0060" },
-      brooklyn: { lat: "40.6782", lng: "-73.9442" },
-      manhattan: { lat: "40.7831", lng: "-73.9712" },
-      queens: { lat: "40.7282", lng: "-73.7949" },
-      bronx: { lat: "40.8448", lng: "-73.8648" },
-      10001: { lat: "40.7505", lng: "-73.9934" },
-      10003: { lat: "40.7316", lng: "-73.9890" },
-      11201: { lat: "40.6928", lng: "-73.9903" },
-      11375: { lat: "40.7081", lng: "-73.8370" },
-      10451: { lat: "40.8209", lng: "-73.9249" },
+      pune: { lat: "18.5204", lng: "73.8567" },
+      "shivaji nagar": { lat: "18.5357", lng: "73.8499" },
+      kothrud: { lat: "18.5074", lng: "73.8077" },
+      aundh: { lat: "18.5615", lng: "73.8073" },
+      "viman nagar": { lat: "18.5679", lng: "73.9141" },
+      baner: { lat: "18.5649", lng: "73.7777" },
     }
 
     const searchKey = location.toLowerCase()
@@ -406,10 +402,10 @@ const Providers = () => {
                 value={filters.radius}
                 onChange={(e) => handleFilterChange("radius", Number.parseInt(e.target.value))}
               >
-                <option value={5}>5 miles</option>
-                <option value={10}>10 miles</option>
-                <option value={25}>25 miles</option>
-                <option value={50}>50 miles</option>
+                <option value={5}>5 km</option>
+                <option value={10}>10 km</option>
+                <option value={25}>25 km</option>
+                <option value={50}>50 km</option>
               </select>
             </div>
 
@@ -464,80 +460,45 @@ const Providers = () => {
         {!searchLoading && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {providers.map((provider) => (
-              <div key={provider._id} className="card hover:shadow-lg transition-shadow">
-                <div className="p-6">
-                  <div className="flex items-center mb-4">
-                    <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mr-4">
-                      {provider.user.avatar ? (
-                        <img
-                          src={provider.user.avatar || "/placeholder.svg"}
-                          alt={provider.user.name}
-                          className="w-16 h-16 rounded-full object-cover"
-                        />
-                      ) : (
-                        <span className="text-xl font-semibold text-gray-600">
-                          {provider.user.name.charAt(0).toUpperCase()}
-                        </span>
-                      )}
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-xl font-semibold text-gray-900">{provider.user.name}</h3>
-                      <div className="flex items-center mt-1">
-                        <div className="flex items-center mr-2">{renderStars(Math.floor(provider.rating))}</div>
-                        <span className="text-sm text-gray-600">
-                          {provider.rating.toFixed(1)} ({provider.totalReviews} reviews)
-                        </span>
-                      </div>
-                      {provider.isVerified && (
-                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 mt-1">
-                          ✓ Verified
-                        </span>
-                      )}
+              <div key={provider._id} className="bg-white rounded-lg shadow hover:shadow-lg transition p-6">
+                <div className="flex items-start justify-between">
+                  <div>
+                    <h2 className="text-xl font-semibold text-gray-900">{provider.user.name}</h2>
+                    <div className="flex items-center mt-1">
+                      {renderStars(Math.round(provider.rating))}
+                      <span className="ml-2 text-sm text-gray-600">
+                        ({provider.totalReviews} reviews)
+                      </span>
                     </div>
                   </div>
+                </div>
 
-                  {provider.bio && <p className="text-gray-600 mb-4 text-sm">{provider.bio}</p>}
-
-                  <div className="mb-4">
-                    <h4 className="text-sm font-medium text-gray-700 mb-2">Services:</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {provider.services.slice(0, 2).map((service, index) => (
-                        <span key={index} className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
-                          {service.service.name} - ${service.price}/hr
-                        </span>
-                      ))}
-                      {provider.services.length > 2 && (
-                        <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">
-                          +{provider.services.length - 2} more
-                        </span>
-                      )}
-                    </div>
+                <div className="mt-3 space-y-2">
+                  <div className="flex items-center text-gray-600">
+                    <MapPin className="w-4 h-4 mr-2" />
+                    {provider.user.location.address}
                   </div>
-
-                  <div className="space-y-2 mb-4 text-sm text-gray-600">
-                    <div className="flex items-center">
-                      <Clock className="w-4 h-4 mr-1" />
-                      <span>{provider.experience} years experience</span>
-                    </div>
-                    <div className="flex items-center">
-                      <MapPin className="w-4 h-4 mr-1" />
-                      <span>{provider.user.location.address}</span>
-                    </div>
-                  </div>
-
-                  <div className="flex gap-2">
-                    <Link to={`/provider/${provider._id}`} className="btn btn-outline flex-1 text-center">
-                      View Profile
-                    </Link>
-                    {provider.services.length > 0 && (
-                      <Link
-                        to={`/book/${provider._id}/${provider.services[0].service._id}`}
-                        className="btn btn-primary flex-1 text-center"
+                  <div className="flex flex-wrap gap-2">
+                    {provider.services.map((service) => (
+                      <span
+                        key={service.service._id}
+                        className="bg-gray-100 text-gray-700 text-sm rounded-full px-3 py-1"
                       >
-                        Book Now
-                      </Link>
-                    )}
+                        {getServiceName(service.service._id)}
+                      </span>
+                    ))}
                   </div>
+                </div>
+
+                <div className="mt-3 text-gray-600 text-sm">{provider.bio}</div>
+
+                <div className="mt-4 flex justify-end">
+                  <Link
+                    to={`/providers/${provider._id}`}
+                    className="btn btn-primary flex items-center"
+                  >
+                    View Details
+                  </Link>
                 </div>
               </div>
             ))}
@@ -546,16 +507,9 @@ const Providers = () => {
 
         {!searchLoading && providers.length === 0 && (
           <div className="text-center py-12">
-            <div className="text-6xl mb-4">👥</div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">No providers found</h3>
-            <p className="text-gray-600 mb-4">
-              {filters.location
-                ? `No providers found in "${filters.location}". Try expanding your search area or adjusting filters.`
-                : "Try adjusting your search criteria or expanding your search area"}
-            </p>
-            <button onClick={clearFilters} className="btn btn-primary">
-              Clear Filters & Show All
-            </button>
+            <h3 className="text-xl font-semibold text-gray-900">No providers found</h3>
+            <p className="text-gray-600 mt-2">Try adjusting your search criteria or expanding the search radius.</p>
+            <button onClick={clearFilters} className="btn btn-primary mt-4">Reset Filters</button>
           </div>
         )}
       </div>
