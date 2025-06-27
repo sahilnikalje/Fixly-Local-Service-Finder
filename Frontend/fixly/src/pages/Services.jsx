@@ -26,7 +26,6 @@ const Services = () => {
     { value: "other", label: "Other" },
   ]
 
-  // Mock services data
   const mockServices = [
     {
       _id: "1",
@@ -146,26 +145,13 @@ const Services = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Debug Info */}
-        <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded mb-4">
-          <p>
-            <strong>🔧 Debug Info:</strong>
-          </p>
-          <p>API URL: {API_URL}</p>
-          <p>Environment: {import.meta.env.MODE}</p>
-          <p>All env vars: {JSON.stringify(import.meta.env, null, 2)}</p>
-        </div>
-
-        {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-4">Our Services</h1>
           <p className="text-lg text-gray-600">Find the perfect service for your needs</p>
         </div>
 
-        {/* Search and Filter */}
         <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
           <div className="flex flex-col md:flex-row gap-4">
-            {/* Search */}
             <div className="flex-1 relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
@@ -176,8 +162,6 @@ const Services = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
-
-            {/* Category Filter */}
             <div className="md:w-64">
               <select
                 className="input w-full"
@@ -194,7 +178,6 @@ const Services = () => {
           </div>
         </div>
 
-        {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredServices.map((service) => (
             <div key={service._id} className="card hover:shadow-lg transition-shadow">
@@ -228,7 +211,6 @@ const Services = () => {
           ))}
         </div>
 
-        {/* No Results */}
         {filteredServices.length === 0 && (
           <div className="text-center py-12">
             <div className="text-6xl mb-4">🔍</div>
