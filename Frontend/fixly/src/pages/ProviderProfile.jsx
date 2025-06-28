@@ -3,9 +3,10 @@
 import { useState, useEffect } from "react"
 import { useParams, Link } from "react-router-dom"
 import { Star, MapPin, Clock, Phone, Mail, Award } from "lucide-react"
-import axios from "axios"
+import { useAuth } from "../contexts/AuthContext"
 
 const ProviderProfile = () => {
+  const { api } = useAuth()
   const { id } = useParams()
   const [provider, setProvider] = useState(null)
   const [reviews, setReviews] = useState([])
@@ -18,15 +19,153 @@ const ProviderProfile = () => {
 
   const fetchProviderData = async () => {
     try {
+      console.log("Fetching provider profile data...")
       const [providerResponse, reviewsResponse] = await Promise.all([
-        axios.get(`/api/providers/${id}`),
-        axios.get(`/api/reviews/provider/${id}`),
+        api.get(`/api/providers/${id}`),
+        api.get(`/api/reviews/provider/${id}`),
       ])
 
       setProvider(providerResponse.data)
       setReviews(reviewsResponse.data)
     } catch (error) {
       console.error("Error fetching provider data:", error)
+      const mockProviders = {
+        1: {
+          _id: "1",
+          user: {
+            _id: "1",
+            name: "Rajesh Sharma",
+            email: "rajesh.electrician@example.com",
+            phone: "+919876543210",
+            avatar: "",
+            location: {
+              coordinates: [73.8567, 18.5204],
+              address: "Koregaon Park, Pune, Maharashtra 411001",
+            },
+          },
+          services: [
+            {
+              service: { _id: "1", name: "Electrical Repair", description: "Professional electrical services" },
+              price: 450,
+              experience: 8,
+            },
+          ],
+          bio: "Experienced electrician with 8+ years in residential and commercial electrical work. Licensed and certified by Maharashtra Electrical Board.",
+          experience: 8,
+          rating: 4.8,
+          totalReviews: 45,
+          isVerified: true,
+          availability: {
+            monday: { start: "09:00", end: "18:00", available: true },
+            tuesday: { start: "09:00", end: "18:00", available: true },
+            wednesday: { start: "09:00", end: "18:00", available: true },
+            thursday: { start: "09:00", end: "18:00", available: true },
+            friday: { start: "09:00", end: "18:00", available: true },
+            saturday: { start: "10:00", end: "17:00", available: true },
+            sunday: { start: "10:00", end: "16:00", available: false },
+          },
+        },
+        2: {
+          _id: "2",
+          user: {
+            _id: "2",
+            name: "Priya Patil",
+            email: "priya.plumber@example.com",
+            phone: "+919876543211",
+            avatar: "",
+            location: {
+              coordinates: [73.8567, 18.5204],
+              address: "Baner, Pune, Maharashtra 411045",
+            },
+          },
+          services: [
+            {
+              service: { _id: "2", name: "Plumbing Services", description: "Expert plumbing repair and maintenance" },
+              price: 350,
+              experience: 5,
+            },
+          ],
+          bio: "Professional plumber specializing in residential repairs and installations. Expert in modern plumbing systems and water conservation.",
+          experience: 5,
+          rating: 4.6,
+          totalReviews: 32,
+          isVerified: true,
+          availability: {
+            monday: { start: "08:00", end: "18:00", available: true },
+            tuesday: { start: "08:00", end: "18:00", available: true },
+            wednesday: { start: "08:00", end: "18:00", available: true },
+            thursday: { start: "08:00", end: "18:00", available: true },
+            friday: { start: "08:00", end: "18:00", available: true },
+            saturday: { start: "09:00", end: "17:00", available: true },
+            sunday: { start: "09:00", end: "16:00", available: false },
+          },
+        },
+        3: {
+          _id: "3",
+          user: {
+            _id: "3",
+            name: "Amit Kulkarni",
+            email: "amit.tutor@example.com",
+            phone: "+919876543212",
+            avatar: "",
+            location: {
+              coordinates: [73.8567, 18.5204],
+              address: "Shivajinagar, Pune, Maharashtra 411005",
+            },
+          },
+          services: [
+            {
+              service: { _id: "3", name: "Math Tutoring", description: "Professional math tutoring for all levels" },
+              price: 800,
+              experience: 10,
+            },
+          ],
+          bio: "M.Tech graduate with 10 years of tutoring experience. Specializing in Mathematics, Physics, and Engineering subjects for 10th-12th and competitive exams.",
+          experience: 10,
+          rating: 4.9,
+          totalReviews: 67,
+          isVerified: true,
+          availability: {
+            monday: { start: "16:00", end: "21:00", available: true },
+            tuesday: { start: "16:00", end: "21:00", available: true },
+            wednesday: { start: "16:00", end: "21:00", available: true },
+            thursday: { start: "16:00", end: "21:00", available: true },
+            friday: { start: "16:00", end: "21:00", available: true },
+            saturday: { start: "10:00", end: "18:00", available: true },
+            sunday: { start: "10:00", end: "18:00", available: true },
+          },
+        },
+      }
+
+      const mockReviews = [
+        {
+          _id: "1",
+          customer: { name: "Arjun Desai", avatar: "" },
+          rating: 5,
+          comment: "Excellent service! Very professional and completed the work quickly. Highly recommended!",
+          createdAt: new Date().toISOString(),
+        },
+        {
+          _id: "2",
+          customer: { name: "Sneha Joshi", avatar: "" },
+          rating: 4,
+          comment: "Good work, arrived on time and fixed the issue. Fair pricing.",
+          createdAt: new Date(Date.now() - 86400000).toISOString(),
+        },
+        {
+          _id: "3",
+          customer: { name: "Rahul Mehta", avatar: "" },
+          rating: 5,
+          comment: "Outstanding service! Very knowledgeable and explained everything clearly.",
+          createdAt: new Date(Date.now() - 172800000).toISOString(),
+        },
+      ]
+
+      const mockProvider = mockProviders[id]
+      if (mockProvider) {
+        setProvider(mockProvider)
+        setReviews(mockReviews)
+      }
     } finally {
       setLoading(false)
     }
@@ -39,7 +178,7 @@ const ProviderProfile = () => {
   }
 
   const formatDate = (date) => {
-    return new Date(date).toLocaleDateString("en-US", {
+    return new Date(date).toLocaleDateString("en-IN", {
       year: "numeric",
       month: "long",
       day: "numeric",
@@ -93,6 +232,7 @@ const ProviderProfile = () => {
                 <span className="text-lg font-medium text-gray-900">{provider.rating.toFixed(1)}</span>
                 <span className="text-gray-600 ml-2">({provider.totalReviews} reviews)</span>
               </div>
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <div className="flex items-center text-gray-600">
                   <Phone className="w-5 h-5 mr-2" />
@@ -111,6 +251,7 @@ const ProviderProfile = () => {
                   <span>{provider.experience} years experience</span>
                 </div>
               </div>
+
               {provider.isVerified && (
                 <div className="flex items-center text-green-600 mb-4">
                   <Award className="w-5 h-5 mr-2" />
@@ -122,7 +263,7 @@ const ProviderProfile = () => {
             <div className="flex flex-col gap-3">
               {provider.services.length > 0 && (
                 <Link
-                  to={`/book/${provider._id}/${provider.services[0].service}`}
+                  to={`/book/${provider._id}/${provider.services[0].service._id}`}
                   className="btn btn-primary px-8 py-3 text-lg"
                 >
                   Book Service
@@ -131,6 +272,7 @@ const ProviderProfile = () => {
             </div>
           </div>
         </div>
+
         <div className="bg-white rounded-lg shadow-sm mb-8">
           <div className="border-b border-gray-200">
             <nav className="flex space-x-8 px-8">
@@ -159,6 +301,7 @@ const ProviderProfile = () => {
                     <p className="text-gray-600">{provider.bio}</p>
                   </div>
                 )}
+
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-3">Availability</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -174,6 +317,7 @@ const ProviderProfile = () => {
                 </div>
               </div>
             )}
+
             {activeTab === "services" && (
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Services Offered</h3>
@@ -183,7 +327,7 @@ const ProviderProfile = () => {
                       <h4 className="font-semibold text-gray-900 mb-2">{service.service.name}</h4>
                       <p className="text-gray-600 text-sm mb-3">{service.service.description}</p>
                       <div className="flex justify-between items-center">
-                        <span className="text-2xl font-bold text-primary-600">${service.price}/hr</span>
+                        <span className="text-2xl font-bold text-primary-600">₹{service.price}/hr</span>
                         <Link to={`/book/${provider._id}/${service.service._id}`} className="btn btn-primary btn-sm">
                           Book Now
                         </Link>
@@ -193,6 +337,7 @@ const ProviderProfile = () => {
                 </div>
               </div>
             )}
+
             {activeTab === "reviews" && (
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Customer Reviews</h3>
@@ -231,6 +376,7 @@ const ProviderProfile = () => {
                 )}
               </div>
             )}
+
             {activeTab === "portfolio" && (
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Portfolio</h3>

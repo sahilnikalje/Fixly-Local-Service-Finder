@@ -3,17 +3,16 @@
 import { useState, useEffect } from "react"
 import { Link, useSearchParams } from "react-router-dom"
 import { Search, MapPin } from "lucide-react"
-import axios from "axios"
+import { useAuth } from "../contexts/AuthContext"
 
 const Services = () => {
+  const { api } = useAuth()
   const [searchParams, setSearchParams] = useSearchParams()
   const [services, setServices] = useState([])
   const [filteredServices, setFilteredServices] = useState([])
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCategory, setSelectedCategory] = useState(searchParams.get("category") || "")
-
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000"
 
   const categories = [
     { value: "", label: "All Categories" },
@@ -30,42 +29,50 @@ const Services = () => {
     {
       _id: "1",
       name: "Electrical Repair",
-      description: "Professional electrical repair and installation services",
+      description: "Professional electrical repair and installation services for homes and offices",
       category: "electrical",
-      basePrice: 75,
+      basePrice: 450,
       icon: "⚡",
     },
     {
       _id: "2",
       name: "Plumbing Services",
-      description: "Expert plumbing repair and maintenance",
+      description: "Expert plumbing repair, installation, and maintenance services",
       category: "plumbing",
-      basePrice: 65,
+      basePrice: 350,
       icon: "🔧",
     },
     {
       _id: "3",
       name: "Math Tutoring",
-      description: "Professional math tutoring for all levels",
+      description: "Professional math tutoring for students from 8th to 12th standard and competitive exams",
       category: "tutoring",
-      basePrice: 40,
+      basePrice: 800,
       icon: "📚",
     },
     {
       _id: "4",
       name: "House Cleaning",
-      description: "Professional house cleaning services",
+      description: "Professional house cleaning services with eco-friendly products",
       category: "cleaning",
-      basePrice: 50,
+      basePrice: 300,
       icon: "🧹",
     },
     {
       _id: "5",
       name: "Appliance Repair",
-      description: "Repair services for home appliances",
+      description: "Repair services for home appliances including AC, washing machine, refrigerator",
       category: "repair",
-      basePrice: 80,
+      basePrice: 400,
       icon: "🔨",
+    },
+    {
+      _id: "6",
+      name: "General Maintenance",
+      description: "Home maintenance services including painting, carpentry, and general repairs",
+      category: "maintenance",
+      basePrice: 350,
+      icon: "⚙️",
     },
   ]
 
@@ -79,15 +86,12 @@ const Services = () => {
 
   const fetchServices = async () => {
     try {
-      const fullUrl = `${API_URL}/api/services`
-      console.log("🔗 Fetching services from:", fullUrl)
-
-      const response = await axios.get(fullUrl)
-      console.log("✅ Services fetched successfully:", response.data)
+      console.log("Fetching services from API...")
+      const response = await api.get("/api/services")
+      console.log("Services fetched successfully:", response.data)
       setServices(response.data)
     } catch (error) {
-      console.error("❌ Services API error:", error)
-      console.error("❌ Using mock data for services")
+      console.log("API error, using mock data for services:", error.message)
       setServices(mockServices)
     } finally {
       setLoading(false)
@@ -146,8 +150,9 @@ const Services = () => {
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">Our Services</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-4">Our Services in Pune</h1>
           <p className="text-lg text-gray-600">Find the perfect service for your needs</p>
+          <p className="text-sm text-gray-500 mt-2">Trusted local service providers across Pune</p>
         </div>
 
         <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
@@ -194,7 +199,7 @@ const Services = () => {
 
                 <div className="flex items-center justify-between mb-4">
                   <span className="text-2xl font-bold text-blue-600">
-                    ${service.basePrice}
+                    ₹{service.basePrice}
                     <span className="text-sm font-normal text-gray-500">/hour</span>
                   </span>
                 </div>

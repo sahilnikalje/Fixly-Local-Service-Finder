@@ -24,8 +24,8 @@ const Providers = () => {
       user: {
         _id: "1",
         name: "Rajesh Sharma",
-        email: "rajesh.sharma@gmail.com",
-        phone: "+91 98765 43210",
+        email: "rajesh.electrician@example.com",
+        phone: "+919876543210",
         avatar: "",
         location: {
           coordinates: [73.8567, 18.5204],
@@ -38,16 +38,11 @@ const Providers = () => {
           price: 450,
           experience: 8,
         },
-        {
-          service: { _id: "5", name: "Appliance Repair", category: "repair" },
-          price: 500,
-          experience: 6,
-        },
       ],
-      bio: "Experienced electrician with 8+ years in residential and commercial electrical work. Licensed and insured. Available for emergency repairs.",
+      bio: "Experienced electrician with 8+ years in residential and commercial electrical work. Licensed and certified by Maharashtra Electrical Board.",
       experience: 8,
       rating: 4.8,
-      totalReviews: 47,
+      totalReviews: 45,
       isVerified: true,
       availability: {
         monday: { start: "09:00", end: "18:00", available: true },
@@ -55,7 +50,7 @@ const Providers = () => {
         wednesday: { start: "09:00", end: "18:00", available: true },
         thursday: { start: "09:00", end: "18:00", available: true },
         friday: { start: "09:00", end: "18:00", available: true },
-        saturday: { start: "10:00", end: "16:00", available: true },
+        saturday: { start: "10:00", end: "17:00", available: true },
         sunday: { start: "10:00", end: "16:00", available: false },
       },
     },
@@ -64,8 +59,8 @@ const Providers = () => {
       user: {
         _id: "2",
         name: "Priya Patil",
-        email: "priya.patil@gmail.com",
-        phone: "+91 87654 32109",
+        email: "priya.plumber@example.com",
+        phone: "+919876543211",
         avatar: "",
         location: {
           coordinates: [73.8567, 18.5204],
@@ -75,49 +70,49 @@ const Providers = () => {
       services: [
         {
           service: { _id: "2", name: "Plumbing Services", category: "plumbing" },
-          price: 400,
+          price: 350,
           experience: 5,
         },
       ],
-      bio: "Professional plumber specializing in residential repairs and installations. Quick response for emergency plumbing issues. Eco-friendly solutions.",
+      bio: "Professional plumber specializing in residential repairs and installations. Expert in modern plumbing systems and water conservation.",
       experience: 5,
       rating: 4.6,
       totalReviews: 32,
       isVerified: true,
       availability: {
-        monday: { start: "08:00", end: "19:00", available: true },
-        tuesday: { start: "08:00", end: "19:00", available: true },
-        wednesday: { start: "08:00", end: "19:00", available: true },
-        thursday: { start: "08:00", end: "19:00", available: true },
-        friday: { start: "08:00", end: "19:00", available: true },
+        monday: { start: "08:00", end: "18:00", available: true },
+        tuesday: { start: "08:00", end: "18:00", available: true },
+        wednesday: { start: "08:00", end: "18:00", available: true },
+        thursday: { start: "08:00", end: "18:00", available: true },
+        friday: { start: "08:00", end: "18:00", available: true },
         saturday: { start: "09:00", end: "17:00", available: true },
-        sunday: { start: "09:00", end: "17:00", available: false },
+        sunday: { start: "09:00", end: "16:00", available: false },
       },
     },
     {
       _id: "3",
       user: {
         _id: "3",
-        name: "Amit Joshi",
-        email: "amit.joshi@gmail.com",
-        phone: "+91 76543 21098",
+        name: "Amit Kulkarni",
+        email: "amit.tutor@example.com",
+        phone: "+919876543212",
         avatar: "",
         location: {
           coordinates: [73.8567, 18.5204],
-          address: "Shivaji Nagar, Pune, Maharashtra 411005",
+          address: "Shivajinagar, Pune, Maharashtra 411005",
         },
       },
       services: [
         {
           service: { _id: "3", name: "Math Tutoring", category: "tutoring" },
-          price: 300,
+          price: 800,
           experience: 10,
         },
       ],
-      bio: "M.Tech graduate with 10 years of tutoring experience. Specializing in 10th, 12th, and engineering mathematics. Online and offline classes available.",
+      bio: "M.Tech graduate with 10 years of tutoring experience. Specializing in Mathematics, Physics, and Engineering subjects for 10th-12th and competitive exams.",
       experience: 10,
       rating: 4.9,
-      totalReviews: 68,
+      totalReviews: 67,
       isVerified: true,
       availability: {
         monday: { start: "16:00", end: "21:00", available: true },
@@ -133,9 +128,9 @@ const Providers = () => {
       _id: "4",
       user: {
         _id: "4",
-        name: "Sunita Desai",
-        email: "sunita.desai@gmail.com",
-        phone: "+91 65432 10987",
+        name: "Sunita Deshmukh",
+        email: "sunita.cleaner@example.com",
+        phone: "+919876543213",
         avatar: "",
         location: {
           coordinates: [73.8567, 18.5204],
@@ -145,14 +140,14 @@ const Providers = () => {
       services: [
         {
           service: { _id: "4", name: "House Cleaning", category: "cleaning" },
-          price: 250,
+          price: 300,
           experience: 6,
         },
       ],
-      bio: "Professional house cleaning service with eco-friendly products. Reliable, thorough, and trustworthy. Deep cleaning and regular maintenance available.",
+      bio: "Professional house cleaning service with eco-friendly products. Specialized in deep cleaning, sanitization, and home organization.",
       experience: 6,
       rating: 4.7,
-      totalReviews: 54,
+      totalReviews: 38,
       isVerified: true,
       availability: {
         monday: { start: "09:00", end: "17:00", available: true },
@@ -168,9 +163,9 @@ const Providers = () => {
       _id: "5",
       user: {
         _id: "5",
-        name: "Vikram Kulkarni",
-        email: "vikram.kulkarni@gmail.com",
-        phone: "+91 54321 09876",
+        name: "Vikram Joshi",
+        email: "vikram.handyman@example.com",
+        phone: "+919876543214",
         avatar: "",
         location: {
           coordinates: [73.8567, 18.5204],
@@ -180,19 +175,19 @@ const Providers = () => {
       services: [
         {
           service: { _id: "5", name: "Appliance Repair", category: "repair" },
-          price: 350,
-          experience: 7,
+          price: 400,
+          experience: 12,
         },
         {
           service: { _id: "6", name: "General Maintenance", category: "maintenance" },
-          price: 300,
-          experience: 7,
+          price: 350,
+          experience: 12,
         },
       ],
-      bio: "Skilled technician for appliance repair and general maintenance. Quick diagnosis and fair pricing. Specializes in AC, washing machine, and refrigerator repairs.",
-      experience: 7,
+      bio: "Skilled handyman offering appliance repair and general maintenance services. Expert in AC repair, washing machine service, and home maintenance.",
+      experience: 12,
       rating: 4.5,
-      totalReviews: 41,
+      totalReviews: 54,
       isVerified: true,
       availability: {
         monday: { start: "08:00", end: "18:00", available: true },
@@ -209,8 +204,8 @@ const Providers = () => {
       user: {
         _id: "6",
         name: "Kavita Bhosale",
-        email: "kavita.bhosale@gmail.com",
-        phone: "+91 43210 98765",
+        email: "kavita.tutor@example.com",
+        phone: "+919876543215",
         avatar: "",
         location: {
           coordinates: [73.8567, 18.5204],
@@ -219,33 +214,33 @@ const Providers = () => {
       },
       services: [
         {
-          service: { _id: "3", name: "English Tutoring", category: "tutoring" },
-          price: 250,
+          service: { _id: "3", name: "Language Tutoring", category: "tutoring" },
+          price: 600,
           experience: 8,
         },
       ],
-      bio: "English teacher with M.A. in English Literature. 8 years of experience in spoken English, grammar, and competitive exam preparation. IELTS/TOEFL coaching available.",
+      bio: "B.Ed qualified teacher with 8 years experience in teaching English, Hindi, and Marathi. Specialized in primary and secondary education.",
       experience: 8,
       rating: 4.8,
-      totalReviews: 36,
+      totalReviews: 29,
       isVerified: true,
       availability: {
-        monday: { start: "17:00", end: "20:00", available: true },
-        tuesday: { start: "17:00", end: "20:00", available: true },
-        wednesday: { start: "17:00", end: "20:00", available: true },
-        thursday: { start: "17:00", end: "20:00", available: true },
-        friday: { start: "17:00", end: "20:00", available: true },
-        saturday: { start: "14:00", end: "18:00", available: true },
-        sunday: { start: "14:00", end: "18:00", available: true },
+        monday: { start: "15:00", end: "20:00", available: true },
+        tuesday: { start: "15:00", end: "20:00", available: true },
+        wednesday: { start: "15:00", end: "20:00", available: true },
+        thursday: { start: "15:00", end: "20:00", available: true },
+        friday: { start: "15:00", end: "20:00", available: true },
+        saturday: { start: "10:00", end: "18:00", available: true },
+        sunday: { start: "10:00", end: "18:00", available: true },
       },
     },
     {
       _id: "7",
       user: {
         _id: "7",
-        name: "Sachin Pawar",
-        email: "sachin.pawar@gmail.com",
-        phone: "+91 32109 87654",
+        name: "Suresh Pawar",
+        email: "suresh.electrician@example.com",
+        phone: "+919876543216",
         avatar: "",
         location: {
           coordinates: [73.8567, 18.5204],
@@ -255,23 +250,23 @@ const Providers = () => {
       services: [
         {
           service: { _id: "1", name: "Electrical Repair", category: "electrical" },
-          price: 400,
-          experience: 6,
+          price: 500,
+          experience: 15,
         },
       ],
-      bio: "Licensed electrician specializing in home automation, LED installations, and electrical safety audits. Quick response for power outages and electrical emergencies.",
-      experience: 6,
-      rating: 4.4,
-      totalReviews: 28,
+      bio: "Senior electrician with 15+ years experience. Specialized in industrial and residential electrical installations, solar panel setup, and electrical safety audits.",
+      experience: 15,
+      rating: 4.9,
+      totalReviews: 78,
       isVerified: true,
       availability: {
-        monday: { start: "09:00", end: "18:00", available: true },
-        tuesday: { start: "09:00", end: "18:00", available: true },
-        wednesday: { start: "09:00", end: "18:00", available: true },
-        thursday: { start: "09:00", end: "18:00", available: true },
-        friday: { start: "09:00", end: "18:00", available: true },
-        saturday: { start: "10:00", end: "16:00", available: true },
-        sunday: { start: "10:00", end: "16:00", available: false },
+        monday: { start: "08:00", end: "19:00", available: true },
+        tuesday: { start: "08:00", end: "19:00", available: true },
+        wednesday: { start: "08:00", end: "19:00", available: true },
+        thursday: { start: "08:00", end: "19:00", available: true },
+        friday: { start: "08:00", end: "19:00", available: true },
+        saturday: { start: "09:00", end: "17:00", available: true },
+        sunday: { start: "09:00", end: "17:00", available: false },
       },
     },
     {
@@ -279,8 +274,8 @@ const Providers = () => {
       user: {
         _id: "8",
         name: "Meera Jadhav",
-        email: "meera.jadhav@gmail.com",
-        phone: "+91 21098 76543",
+        email: "meera.cleaner@example.com",
+        phone: "+919876543217",
         avatar: "",
         location: {
           coordinates: [73.8567, 18.5204],
@@ -290,23 +285,23 @@ const Providers = () => {
       services: [
         {
           service: { _id: "4", name: "House Cleaning", category: "cleaning" },
-          price: 200,
+          price: 280,
           experience: 4,
         },
       ],
-      bio: "Experienced in residential and office cleaning. Uses eco-friendly cleaning products. Flexible timing and competitive rates. Deep cleaning specialist.",
+      bio: "Professional cleaning service provider with trained staff. Offering residential and commercial cleaning, carpet cleaning, and post-construction cleanup.",
       experience: 4,
-      rating: 4.6,
-      totalReviews: 22,
+      rating: 4.4,
+      totalReviews: 23,
       isVerified: true,
       availability: {
-        monday: { start: "08:00", end: "16:00", available: true },
-        tuesday: { start: "08:00", end: "16:00", available: true },
-        wednesday: { start: "08:00", end: "16:00", available: true },
-        thursday: { start: "08:00", end: "16:00", available: true },
-        friday: { start: "08:00", end: "16:00", available: true },
-        saturday: { start: "09:00", end: "15:00", available: true },
-        sunday: { start: "09:00", end: "15:00", available: false },
+        monday: { start: "09:00", end: "17:00", available: true },
+        tuesday: { start: "09:00", end: "17:00", available: true },
+        wednesday: { start: "09:00", end: "17:00", available: true },
+        thursday: { start: "09:00", end: "17:00", available: true },
+        friday: { start: "09:00", end: "17:00", available: true },
+        saturday: { start: "10:00", end: "16:00", available: true },
+        sunday: { start: "10:00", end: "16:00", available: false },
       },
     },
   ]
@@ -322,13 +317,13 @@ const Providers = () => {
 
   useEffect(() => {
     fetchServices()
-    fetchProviders()
+    setProviders(mockProviders)
+    setLoading(false)
   }, [])
 
   const fetchServices = async () => {
     try {
-      const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000"
-      const response = await axios.get(`${API_URL}/api/services`)
+      const response = await axios.get("/api/services")
       setServices(response.data)
     } catch (error) {
       console.log("Using mock data for services")
@@ -339,9 +334,9 @@ const Providers = () => {
   const fetchProviders = async () => {
     try {
       setSearchLoading(true)
-      const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000"
-      const params = new URLSearchParams()
+      console.log("Fetching providers from API...")
 
+      const params = new URLSearchParams()
       if (filters.service) params.append("service", filters.service)
       if (filters.location) {
         const locationCoords = getLocationCoordinates(filters.location)
@@ -352,16 +347,17 @@ const Providers = () => {
         }
       }
 
-      const response = await axios.get(`${API_URL}/api/providers/search?${params}`)
+      const response = await axios.get(`/api/providers/search?${params}`)
       let filteredProviders = response.data
 
       if (filters.minRating > 0) {
         filteredProviders = filteredProviders.filter((provider) => provider.rating >= filters.minRating)
       }
 
+      console.log("Providers fetched successfully:", filteredProviders)
       setProviders(filteredProviders)
     } catch (error) {
-      console.log("Using mock data for providers")
+      console.log("API error, using mock data for providers:", error.message)
       let filteredProviders = [...mockProviders]
 
       if (filters.service) {
@@ -381,6 +377,7 @@ const Providers = () => {
         )
       }
 
+      console.log("Using mock providers:", filteredProviders)
       setProviders(filteredProviders)
     } finally {
       setSearchLoading(false)
@@ -393,19 +390,24 @@ const Providers = () => {
       pune: { lat: "18.5204", lng: "73.8567" },
       koregaon: { lat: "18.5362", lng: "73.8958" },
       baner: { lat: "18.5679", lng: "73.7781" },
-      "shivaji nagar": { lat: "18.5309", lng: "73.8475" },
+      shivajinagar: { lat: "18.5309", lng: "73.8553" },
       wakad: { lat: "18.5975", lng: "73.7898" },
       hinjewadi: { lat: "18.5912", lng: "73.7389" },
       kothrud: { lat: "18.5074", lng: "73.8077" },
-      "pimpri chinchwad": { lat: "18.6298", lng: "73.7997" },
+      pimpri: { lat: "18.6298", lng: "73.8131" },
+      chinchwad: { lat: "18.6186", lng: "73.8037" },
       aundh: { lat: "18.5593", lng: "73.8078" },
+      hadapsar: { lat: "18.5089", lng: "73.9260" },
+      viman: { lat: "18.5679", lng: "73.9143" },
       411001: { lat: "18.5204", lng: "73.8567" },
       411045: { lat: "18.5679", lng: "73.7781" },
-      411005: { lat: "18.5309", lng: "73.8475" },
+      411005: { lat: "18.5309", lng: "73.8553" },
       411057: { lat: "18.5975", lng: "73.7898" },
       411038: { lat: "18.5074", lng: "73.8077" },
-      411018: { lat: "18.6298", lng: "73.7997" },
+      411018: { lat: "18.6298", lng: "73.8131" },
       411007: { lat: "18.5593", lng: "73.8078" },
+      411028: { lat: "18.5089", lng: "73.9260" },
+      411014: { lat: "18.5679", lng: "73.9143" },
     }
 
     const searchKey = location.toLowerCase()
@@ -520,7 +522,6 @@ const Providers = () => {
                 <option value={50}>50 km</option>
               </select>
             </div>
-
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Min Rating</label>
               <select
@@ -552,7 +553,6 @@ const Providers = () => {
               </button>
             </div>
           </div>
-
           {(filters.service || filters.location || filters.minRating > 0) && (
             <div className="mt-4 flex justify-center">
               <button type="button" onClick={clearFilters} className="btn btn-outline btn-sm">
@@ -605,7 +605,6 @@ const Providers = () => {
                   </div>
 
                   {provider.bio && <p className="text-gray-600 mb-4 text-sm">{provider.bio}</p>}
-
                   <div className="mb-4">
                     <h4 className="text-sm font-medium text-gray-700 mb-2">Services:</h4>
                     <div className="flex flex-wrap gap-2">
